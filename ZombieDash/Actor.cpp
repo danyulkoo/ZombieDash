@@ -20,6 +20,9 @@ void Penelope::doSomething()
                 break;
             case KEY_PRESS_LEFT:
                 setDirection(left);
+                // Check if Penelope can move
+                if (getWorld()->isActorBlocked(*this))
+                    break;
                 moveTo(getX() - 4, getY());
                 break;
             case KEY_PRESS_RIGHT:
@@ -28,27 +31,4 @@ void Penelope::doSomething()
                 break;
         }
     }
-}
-
-bool Penelope::checkBlocking(const Wall& wall) const
-{
-    int dir = getDirection();
-    
-    if (dir == left)
-    {
-        
-    }
-    else if (dir == right)
-    {
-        
-    }
-    else if (dir == up)
-    {
-        
-    }
-    else if (dir == down)
-    {
-        
-    }
-    return true;
 }

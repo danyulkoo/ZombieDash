@@ -1,6 +1,7 @@
 #include "StudentWorld.h"
 #include "GameConstants.h"
 #include "Actor.h"
+#include "GraphObject.h"
 #include "Level.h"
 #include <string>
 using namespace std;
@@ -97,3 +98,51 @@ StudentWorld::~StudentWorld()
 {
     cleanUp();
 }
+
+bool StudentWorld::isActorBlocked(const Actor& actor)
+{
+    double a_bot    = actor.getY();
+    double a_top    = actor.getY() + SPRITE_HEIGHT - 1;
+    double a_left   = actor.getX();
+    double a_right  = actor.getX() + SPRITE_WIDTH - 1;
+    Direction a_dir = actor.getDirection();
+    
+    double b_bot;
+    double b_top;
+    double b_left;
+    double b_right;
+    list<Actor*>::iterator itr;
+    for (itr = liActor.begin(); itr != liActor.end(); itr++)
+    {
+        if ((*itr)->doesBlock())
+        {
+            b_bot    = (*itr)->getY();
+            b_top    = (*itr)->getY() + SPRITE_HEIGHT - 1;
+            b_left   = (*itr)->getX();
+            b_right  = (*itr)->getX() + SPRITE_WIDTH - 1;
+            
+            if (a_dir == actor.left)
+            {
+                if (b_right >= a_left)
+                    continue;
+                if (a_left - 4 <= b_right && ((a_bot >= b_bot && a_bot <= b_top) || (a_top <= b_top && a_top >= b_bot)))
+                    return true;
+            }
+            else if (a_dir == actor.right)
+            {
+                
+            }
+            else if (a_dir == actor.up)
+            {
+                
+            }
+            else if (a_dir == actor.down)
+            {
+                
+            }
+        }
+    }
+    
+    return false;
+}
+

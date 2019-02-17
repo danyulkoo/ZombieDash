@@ -20,7 +20,9 @@ public:
     virtual int init();
     virtual int move();
     virtual void cleanUp();
-
+    
+    // Checks if
+    bool isActorBlocked(const Actor& actor);
 private:
     Penelope* m_Penelope;
     list<Actor*> liActor;

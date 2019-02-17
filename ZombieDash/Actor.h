@@ -10,8 +10,8 @@ class Actor: public GraphObject
 {
 public:
     // Constructor
-    Actor(int imageID, double startX, double startY, int dir, int depth, double size, StudentWorld* world)
-    : GraphObject(imageID, startX, startY, dir, depth, size), m_world(world), m_isAlive(true)
+    Actor(int imageID, double startX, double startY, int dir, int depth, double size, StudentWorld* world, bool doesBlock)
+    : GraphObject(imageID, startX, startY, dir, depth, size), m_world(world), m_isAlive(true), m_doesBlock(doesBlock)
     {}
     
     // Destructor
@@ -19,21 +19,22 @@ public:
     
     // Simple const functions
     StudentWorld* getWorld() const  {return m_world;}
-    bool isAlive() const            {return m_isAlive;}
-    
+    bool isAlive()           const  {return m_isAlive;}
+    bool doesBlock()         const  {return m_doesBlock;}
     void setDead() {m_isAlive = false;}
     virtual void doSomething() = 0;
     
 private:
     StudentWorld* m_world;
     bool m_isAlive;
+    bool m_doesBlock;
 };
 
 class Wall: public Actor
 {
 public:
     Wall(double startX, double startY, StudentWorld* world)
-    : Actor(IID_WALL, startX, startY, right, 0, 1, world)
+    : Actor(IID_WALL, startX, startY, right, 0, 1, world, true)
     {}
     
     virtual ~Wall() {}
@@ -45,14 +46,13 @@ class Penelope: public Actor
 {
 public:
     Penelope(double startX, double startY, StudentWorld* world)
-    : Actor(IID_PLAYER, startX, startY, right, 0, 1, world)
+    : Actor(IID_PLAYER, startX, startY, right, 0, 1, world, true)
     {}
     
     virtual ~Penelope() {}
     
     virtual void doSomething();
     
-    bool checkBlocking(const Wall& wall) const;
 };
 
 
