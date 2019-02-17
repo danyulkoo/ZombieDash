@@ -123,21 +123,37 @@ bool StudentWorld::isActorBlocked(const Actor& actor)
             
             if (a_dir == actor.left)
             {
+                // Ignore if blocking object is on the actor's right
                 if (b_right >= a_left)
                     continue;
-                if (a_left - 4 <= b_right && ((a_bot >= b_bot && a_bot <= b_top) || (a_top <= b_top && a_top >= b_bot)))
+                // if actor would move past blocking object's right AND actor is within the height
+                // of blocking object
+                if (a_left - 4 <= b_right && isWithinHeight(a_bot, a_top, b_bot, b_top))
                     return true;
             }
             else if (a_dir == actor.right)
             {
-                
+                // Ignore if blocking object is on the actor's left
+                if (b_left <= a_right)
+                    continue;
+                // if actor would move past blocking object's left AND actor is within the height
+                // of blocking object
+                if (a_right + 4 >= b_left && isWithinHeight(a_bot, a_top, b_bot, b_top))
+                    return true;
             }
             else if (a_dir == actor.up)
             {
-                
+                if (b_bot <= a_top)
+                    continue;
+                if (a_top + 4 >= b_bot && isWithinWidth(a_left, a_right, b_left, b_right))
+                    return true;
             }
             else if (a_dir == actor.down)
             {
+                if (b_top >= a_bot)
+                    continue;
+                if (a_top - 4 <= b_top && isWithinWidth(a_left, a_right, b_left, b_right))
+                    return true;
                 
             }
         }
@@ -146,3 +162,12 @@ bool StudentWorld::isActorBlocked(const Actor& actor)
     return false;
 }
 
+bool isWithinHeight(double a_bot, double a_top, double b_bot, double b_top)
+{
+    return ((a_bot >= b_bot && a_bot <= b_top) || (a_top >= b_bot && a_top <= b_top));
+}
+
+bool isWithinWidth(double a_left, double a_right, double b_left, double b_right)
+{
+    return ((a_left >= b_left && a_left <= b_right) || (a_right >= b_left && a_right <= b_right));
+}

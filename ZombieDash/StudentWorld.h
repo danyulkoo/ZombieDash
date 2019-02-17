@@ -28,4 +28,7 @@ private:
     list<Actor*> liActor;
 };
 
+// Helper functions
+bool isWithinHeight(double a_bot, double a_top, double b_bot, double b_top);
+bool isWithinWidth(double a_left, double a_right, double b_left, double b_right);
 #endif // STUDENTWORLD_H_

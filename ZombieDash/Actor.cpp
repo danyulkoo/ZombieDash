@@ -12,10 +12,14 @@ void Penelope::doSomething()
         {
             case KEY_PRESS_UP:
                 setDirection(up);
+                if (getWorld()->isActorBlocked(*this))
+                    break;
                 moveTo(getX(), getY() + 4);
                 break;
             case KEY_PRESS_DOWN:
                 setDirection(down);
+                if (getWorld()->isActorBlocked(*this))
+                    break;
                 moveTo(getX(), getY() - 4);
                 break;
             case KEY_PRESS_LEFT:
@@ -27,6 +31,8 @@ void Penelope::doSomething()
                 break;
             case KEY_PRESS_RIGHT:
                 setDirection(right);
+                if (getWorld()->isActorBlocked(*this))
+                    break;
                 moveTo(getX() + 4, getY());
                 break;
         }
