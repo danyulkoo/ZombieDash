@@ -1,5 +1,5 @@
 # ZombieDash
-A simple C++ zombie survival game
+A simple C++ zombie survival game for UCLA CS 32
 
 This program is built for Mac OS utilizing XQuartz
 
